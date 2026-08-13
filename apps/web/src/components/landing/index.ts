@@ -1,0 +1,9 @@
+export { LandingPage } from "./landing-page";
+export { Navbar } from "./navbar";
+export { HeroSection } from "./hero-section";
+export { FeaturesSection } from "./features-section";
+export { AiShowcaseSection } from "./ai-showcase-section";
+export { PricingSection } from "./pricing-section";
+export { TestimonialsSection } from "./testimonials-section";
+export { FaqSection } from "./faq-section";
+export { Footer } from "./footer";

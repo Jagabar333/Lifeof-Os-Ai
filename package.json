@@ -1,0 +1,41 @@
+{
+  "name": "lifeos-ai",
+  "version": "0.1.0",
+  "private": true,
+  "description": "LifeOS AI — The Intelligent Operating System For Your Life",
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@9.12.0",
+  "engines": {
+    "node": ">=20.11.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "clean:ports": "node scripts/clean-ports.js",
+    "dev": "pnpm --parallel --filter @lifeos/web --filter @lifeos/api dev",
+    "dev:turbo": "turbo run dev",
+    "dev:clean": "npm run clean:ports && pnpm run dev",
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "clean": "turbo run clean && rimraf node_modules",
+    "db:generate": "pnpm --filter @lifeos/database prisma:generate",
+    "db:migrate": "pnpm --filter @lifeos/database prisma:migrate",
+    "db:seed": "pnpm --filter @lifeos/database prisma:seed",
+    "db:studio": "pnpm --filter @lifeos/database prisma:studio"
+  },
+  "devDependencies": {
+    "kill-port": "^2.0.1",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.8",
+    "rimraf": "^6.0.1",
+    "turbo": "^2.3.0",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "mongoose": "^9.8.0"
+  }
+}

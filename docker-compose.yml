@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:6.0
+    container_name: lifeos-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+  api:
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+    container_name: lifeos-api
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017/lifeos?authSource=admin
+      - JWT_SECRET=production_secret_do_not_use_in_public
+      - PORT=4000
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile
+    container_name: lifeos-web
+    ports:
+      - "3002:3002"
+    environment:
+      - NODE_ENV=production
+      - BACKEND_API_URL=http://api:4000
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
